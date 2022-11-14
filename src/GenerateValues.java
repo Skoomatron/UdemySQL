@@ -23,10 +23,18 @@ public class GenerateValues {
             statement.setInt(2, values.getPhone());
             statement.setString(3, values.getEmail());
             statement.execute();
+
+            Statement statement1 = conn.createStatement();
+            statement1.execute("SELECT * FROM contacts");
+            ResultSet results = statement1.getResultSet();
+            while(results.next()) {
+                System.out.println(results.getString("name") + results.getInt("phone") + results.getString("email"));
+            }
+
+            statement.close();
+            conn.close();
         } catch (SQLException e) {
             System.out.println("Failed to connect: " + e.getMessage());
         }
-
-
     }
 }
